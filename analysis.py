@@ -519,6 +519,7 @@ def plothistograms(data,histograms,dataset)  :
             n=n+0.2
             k=k+1
      boxbins=[boxbins[a] for a in range(0,k)]
+     print(histbox,boxbins)
      plt.hist(x=histbox,bins=boxbins)
      plt.xticks(boxbins,rotation=45, horizontalalignment='right')
      plt.ylabel("Amount of Edges",fontweight ='bold', fontsize = 15)
@@ -533,7 +534,7 @@ def plothistograms(data,histograms,dataset)  :
                field="Synergy"
                
        if sum(histograms[stat+'appear'])>0:
-           
+         
          "A BAR CHART FOR THE APPEARANCES OF EACH NODE IN THE SYNERGISTIC/REDUNDANT EDGES"       
          step=(max(histograms[stat+'appear'])-min(histograms[stat+'appear'])/10)   
          plt.bar(data['nodes'],histograms[stat+'count'],edgecolor="green")
@@ -543,7 +544,6 @@ def plothistograms(data,histograms,dataset)  :
           plt.yticks(np.arange(0,max(histograms[stat+'count'])+step,step))
          if stat=='syn' :
              step=(0.2+max(histograms[stat+'appear'])-min(histograms[stat+'appear'])/10)
-             print(step,max(histograms[stat+'appear']),min(histograms[stat+'appear']))
              plt.yticks(np.arange(min(histograms[stat+'count'])+step,0,step))
     
          plt.xlabel("Node number",fontweight ='bold', fontsize = 15)
@@ -626,22 +626,7 @@ def plothistograms(data,histograms,dataset)  :
          plt.pie(box,labels=nodelabels,autopct='%.1f%%',pctdistance=0.8,) 
          plt.suptitle(f"{field.upper()}:{dataset.upper()} Dataset in Appearances Percentage",fontweight ='bold', fontsize = 20)
          plt.show()
-        
-         "A HISTOGRAM FOR FREQUENCY OF NODES IN RANGE PERCENTAGES"    
-         box=[abs(n*100/sum(histograms[stat+'count'])) for n in histograms[stat+'count']]
-         maxbox=int(max(box))
-         bin_edges=[0,2,5,10,25,50,75,100]
-         boxhist=[0] * (len(box))
-         binhist=[n*4 for n in range(0,13)]
-         for b in box:
-          for a in range(0,len(bin_edges)-1):    
-             if b>=bin_edges[a] and b<bin_edges[a+1]:
-                boxhist[a] = boxhist[a]+1      
-         print(binhist,boxhist) 
-         plt.hist(x=box,bins=maxbox,y=binhist)
-         plt.suptitle(f"{field.upper()}:{dataset.upper()} Dataset in Frecuency of nodes in Values Percentage",fontweight ='bold', fontsize = 20)
-         plt.show()
-         
+
 
 if __name__ == "__main__":
 
@@ -650,9 +635,9 @@ if __name__ == "__main__":
 
     savefig = True
     datasets = [ 'empathy','eating']
-    plots = ['polygons', 'two_rows', 'areas', 'planar']
+  #  plots = ['polygons', 'two_rows', 'areas', 'planar']
     #datasets = ['eating']
-   # plots = ['two_rows']
+    plots = ['']
 
     for dataset in datasets:
 
@@ -716,14 +701,15 @@ if __name__ == "__main__":
         '''
          Storage and visualization function, plot and store first and second order gradients information and the characteristics of each variable 
         '''
-        gradient,infogradients=hyperplot.rankgradient(data,dataset)
+  #      gradient,infogradients=hyperplot.rankgradient(data,dataset)
         '''
         Plotting the four functions of Hyperplot, depending on the characteristics of the box and percentage of the filtered variables, based on gradient store
         '''
-        hyperplot.rankplot(data=data,rankvariable=gradient['synappear'],dataset=dataset,nodevarpr=10)
+  #      hyperplot.rankplot(data=data,rankvariable=gradient['synappear'],dataset=dataset,nodevarpr=10)
         '''
         Plotting the four functions of Hyperplot, depending on the characteristics of the box and percentage of the filtered variables, based on histograms store
         '''
-        hyperplot.rankplot(data=data,dataset=dataset,select_EdgeorNode='Edge',rankvariable=histograms['syncount'],nodevarpr=12,thresholdval=-0.146,)
+ #       hyperplot.rankplot(data=data,dataset=dataset,select_EdgeorNode='Edge',rankvariable=histograms['syncount'],nodevarpr=12,thresholdval=-0.146,)
         
+
 
